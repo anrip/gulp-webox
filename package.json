@@ -1,0 +1,39 @@
+{
+  "name": "gulp-webox",
+  "description": "webox.js for gulp",
+  "homepage": "http://www.anrip.com",
+  "version": "2.4.4",
+  "author": {
+    "name": "Anrip Wong",
+    "email": "mail@anrip.com",
+    "url": "http://www.anrip.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anrip/gulp-webox.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "complie",
+    "avalon"
+  ],
+  "dependencies": {
+    "gulp-util": "^3.0.1"
+  },
+  "engines": {
+    "node": ">= 0.9"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "webox": "./library/webox.js"
+  },
+  "readme": "ERROR: No README data found!",
+  "bugs": {
+    "url": "https://github.com/anrip/gulp-webox/issues"
+  },
+  "_id": "gulp-webox@2.4.3",
+  "scripts": {},
+  "_shasum": "a5e2b28792e57312bfa065d05cb4f6bc8402810a",
+  "_from": "gulp-webox"
+}

@@ -1,0 +1,15 @@
+(function(window, undefined) {
+
+window = Function('return this')();
+
+{{require}}
+
+{{register}}
+
+window['{{name}}'] = require('{{name}}.js');
+
+if(window['{{name}}'] && window['{{name}}'].init) {
+    window['{{name}}'].init();
+}
+
+})();

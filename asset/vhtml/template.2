@@ -1,0 +1,11 @@
+(function(window, undefined) {
+
+window = Function('return this')();
+
+var html = {};
+
+{{register}}
+
+window['{{name}}'] = html;
+
+})();
