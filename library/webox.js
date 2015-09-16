@@ -10,6 +10,7 @@ var url  = require('url');
 var fs   = require('fs');
 
 var wbmime = require('./wbmime');
+var dfmine = 'application/octet-stream';
 
 // set title
 process.title = 'HTTP 服务器';
@@ -26,12 +27,16 @@ process.once('exit', function(code) {
     }
 });
 
+// parse config
+
 var config = process.argv.slice(2);
-
-var listen = config[0] || '0.0.0.0:1986';
 var wbroot = config[1] || 'webroot';
+var listen = config[0] ? config[0].split(':') : [];
 
-var dfmine = 'application/octet-stream';
+listen[0] = listen[0] || '0.0.0.0';
+listen[1] = listen[1] > 0 ? parseInt(listen[1]) : 80;
+
+// create server
 
 var webox = http.createServer(function(request, response) {
     //解析请求参数
@@ -70,7 +75,19 @@ var webox = http.createServer(function(request, response) {
     });
 });
 
-var host = listen.split(':');
-webox.listen(host[1], host[0], 1024);
+webox.on('error', function (e) {
+    if(e.code == 'EADDRINUSE') {
+        console.log('端口已被占用', listen[0], listen[1], '\n');
+        console.log('尝试新的端口', listen[0], ++listen[1]);
+        webox.listen(listen[1], listen[0], 1024);
+    }
+});
 
-console.log('服务已启动 http://' + listen);
+webox.on('listening', function () {
+    var host = listen[0] === '0.0.0.0' ? '127.0.0.1' : listen[0];
+    console.log('服务启动成功', 'http://' + host + ':' + listen[1], '\n');
+});
+
+// start server
+
+webox.listen(listen[1], listen[0], 1024);

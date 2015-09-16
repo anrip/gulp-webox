@@ -33,10 +33,6 @@ module.exports = function(option) {
 
     option = option || {};
 
-    if (typeof option.name !== 'string') {
-        option.name = 'view';
-    }
-
     if (typeof option.newline !== 'string') {
         option.newline = gutil.linefeed;
     }
@@ -74,8 +70,9 @@ module.exports = function(option) {
 
         //应用到全局模板
         var code = asset.template2
-            .replace(/{{name}}/g, option.name)
-            .replace(/{{register}}/g, function() { return cache.join(option.newline) })
+            .replace(/{{register}}/g, function() {
+                return cache.join(option.newline)
+            })
         ;
 
         //创建全新文件流

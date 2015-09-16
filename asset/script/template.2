@@ -1,15 +1,10 @@
 (function(window, undefined) {
 
-window = Function('return this')();
-
 {{require}}
 
 {{register}}
 
-window['{{name}}'] = require('{{name}}.js');
+window.app = require('{{name}}.js');
+window.app.init && window.app.init();
 
-if(window['{{name}}'] && window['{{name}}'].init) {
-    window['{{name}}'].init();
-}
-
-})();
+})(this);

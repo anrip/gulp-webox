@@ -60,7 +60,9 @@ module.exports = function(option) {
         //应用到注册模板
         var code = asset.template1
             .replace('{{name}}', file.relative.replace(/\\/g, '/'))
-            .replace('{{content}}', function() { return file.contents.toString() })
+            .replace('{{content}}', function() {
+                return file.contents.toString()
+            })
         ;
 
         //保存到内容列表
@@ -73,8 +75,12 @@ module.exports = function(option) {
         //应用到全局模板
         var code = asset.template2
             .replace(/{{name}}/g, option.name)
-            .replace(/{{require}}/g, function() { return asset.require })
-            .replace(/{{register}}/g, function() { return cache.join(option.newline) })
+            .replace(/{{require}}/g, function() {
+                return asset.require
+            })
+            .replace(/{{register}}/g, function() {
+                return cache.join(option.newline)
+            })
         ;
 
         //创建全新文件流

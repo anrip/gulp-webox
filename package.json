@@ -2,7 +2,7 @@
   "name": "gulp-webox",
   "description": "webox.js for gulp",
   "homepage": "http://www.anrip.com",
-  "version": "2.4.4",
+  "version": "2.5.1",
   "author": {
     "name": "Anrip Wong",
     "email": "mail@anrip.com",
@@ -32,8 +32,9 @@
   "bugs": {
     "url": "https://github.com/anrip/gulp-webox/issues"
   },
-  "_id": "gulp-webox@2.4.3",
+  "_id": "gulp-webox@2.4.5",
   "scripts": {},
-  "_shasum": "a5e2b28792e57312bfa065d05cb4f6bc8402810a",
-  "_from": "gulp-webox"
+  "_shasum": "ae5e263cee85db6cbe9f00e7bb8dd41e175ed17e",
+  "_from": "gulp-webox@*",
+  "gitHead": "a753360129b150773d3de2bb2392d4153ef100c6"
 }
