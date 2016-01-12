@@ -10,7 +10,7 @@ var url  = require('url');
 var fs   = require('fs');
 
 // set title
-process.title = 'HTTP 服务器';
+process.title = 'Webox - HTTP Server';
 
 // set env var for ORIGINAL cwd
 process.env.INIT_CWD = process.cwd();
@@ -18,7 +18,7 @@ process.env.INIT_CWD = process.cwd();
 // exit with 0 or 1
 var failed = false;
 process.once('exit', function(code) {
-    webox.log('服务已停止');
+    webox.log('Service Stopped');
     if(code === 0 && failed) {
         process.exit(1);
     }
@@ -45,13 +45,13 @@ var webox = http.createServer(function(request, response) {
     var pathTemp = request.url.match(/\/$|^\/\?/) ? '/index.html' : request.url;
     var pathName = url.parse(pathTemp).pathname;
     var realPath = path.join(wbroot, pathName);
-    webox.log('请求源文件 ' + realPath);
+    webox.log('Request file: ' + realPath);
     //尝试查找文件
     fs.exists(realPath, function(exists) {
         //找不到文件
         if(!exists) {
             response.writeHead(404, {'Content-Type': wbmime['txt']});
-            response.write('找不到文件 ' + pathName);
+            response.write('File not found: ' + pathName);
             response.end();
             return;
         }
@@ -64,7 +64,7 @@ var webox = http.createServer(function(request, response) {
         fs.createReadStream(realPath)
             .on('error', function(error) {
                 response.writeHead(500, {'Content-Type': wbmime['txt']});
-                response.write('服务器错误 ' + pathName);
+                response.write('Server internal error: ' + pathName);
                 response.end();
             })
             .on('data', function(chunk) {
@@ -85,15 +85,15 @@ webox.log = function() {
 
 webox.on('error', function (e) {
     if(e.code == 'EADDRINUSE') {
-        webox.log('端口已被占用', listen[0], listen[1], '\n');
-        webox.log('尝试新的端口', listen[0], ++listen[1]);
+        webox.log('Port is occupied:', listen[0], listen[1], '\n');
+        webox.log('Try other port:', listen[0], ++listen[1]);
         webox.listen(listen[1], listen[0], 1024);
     }
 });
 
 webox.on('listening', function () {
     var host = listen[0] === '0.0.0.0' ? '127.0.0.1' : listen[0];
-    webox.log('服务启动成功', 'http://' + host + ':' + listen[1], '\n');
+    webox.log('Service started:', 'http://' + host + ':' + listen[1], '\n');
 });
 
 // start server
